@@ -89,13 +89,21 @@ public class PaisController {
 
         PaisEntity pais = paisRepository.findByNombre(nombre);
 
+        if(pais == null){
+            return ResponseEntity.notFound().build();
+        }
+
         return ResponseEntity.ok(pais);
     }
 
     @GetMapping(path = "continentes/{continente}")
     public ResponseEntity<List<PaisEntity>> obtenerPaisPorContinente(@PathVariable("continente") Continentes continente, @PageableDefault(size = 2) Pageable page){
 
-        return ResponseEntity.ok(paisRepository.findByContinente(continente));
+        if(continente != null){
+            return ResponseEntity.ok(paisRepository.findByContinente(continente));
+        }
+
+        return ResponseEntity.notFound().build();
 
     }
 
