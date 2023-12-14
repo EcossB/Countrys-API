@@ -71,14 +71,10 @@ public class PaisController {
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity eliminarPais(@PathVariable Long id){
-        Optional<PaisEntity> optionalPais = paisRepository.findById(id);
+        PaisEntity pais = paisRepository.getReferenceById(id);
 
-        if (optionalPais.isEmpty()){
-            return ResponseEntity.notFound().build();
-        }
-
-        paisRepository.deleteById(id);
-        System.out.println("Usuario eliminado Correctamente");
+        paisRepository.delete(pais);
+        System.out.println("pais eliminado Correctamente");
 
         return ResponseEntity.noContent().build();
     }
