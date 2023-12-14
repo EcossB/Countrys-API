@@ -18,4 +18,7 @@ public record HotelDtoP(
         PaisEntity paisId
 
 ) {
+        public HotelEntity toEntity(){
+                return new HotelEntity(nombre_hotel,valoracion,imagen_hotel,paisId);
+        }
 }

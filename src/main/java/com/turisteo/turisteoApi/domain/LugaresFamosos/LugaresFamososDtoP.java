@@ -18,4 +18,8 @@ public record LugaresFamososDtoP(
         @NotNull
         PaisEntity paisId
 ) {
+
+        public LugaresFamososEntity toEntity(){
+                return new LugaresFamososEntity(nombre, descripcion, imagen, paisId);
+        }
 }

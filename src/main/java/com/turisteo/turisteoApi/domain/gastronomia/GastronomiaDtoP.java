@@ -13,4 +13,8 @@ public record GastronomiaDtoP(
           @NotNull
           PaisEntity paisId
                               ) {
+
+    public GastronomiaEntity toEntity(){
+        return new GastronomiaEntity(nombrePlato, linkImagen, paisId);
+    }
 }

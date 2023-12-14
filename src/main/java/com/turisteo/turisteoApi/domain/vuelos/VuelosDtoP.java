@@ -11,4 +11,8 @@ public record VuelosDtoP(
         @NotNull
         PaisEntity paisId
 ) {
+
+        public VuelosEntity toEntity(){
+                return new VuelosEntity(linkVuelo, paisId);
+        }
 }
