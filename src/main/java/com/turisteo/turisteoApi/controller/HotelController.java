@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -22,6 +23,8 @@ public class HotelController {
 
     @Autowired
     private HotelRepository hotelRepository;
+    @Autowired
+    private HotelService service;
 
     @PostMapping
     public ResponseEntity<HotelDtoG> guardarHoteles(@RequestBody @Valid HotelDtoP hotelDtoP , UriComponentsBuilder builder){
@@ -72,10 +75,14 @@ public class HotelController {
 
     }
 
+    @PostMapping(path = "/guardar")
+    public ResponseEntity<List<HotelEntity>> guardarListaHoteles(@RequestBody @Valid List<HotelDtoP> hotelDtoPList, UriComponentsBuilder builder){
+        System.out.println("Post con listas de hoteles correcto");
+        List<HotelEntity> hotelEntities = service.guardarLista(hotelDtoPList);
 
-    //klk ya termine mi parte, me pongo a documentarla mientras terminas? wey mmg toy aqui alooo
-    // tt
-    //Jevi me puse pa eso
-    // Me esta danod 2 errores con los constructores
+        URI url = builder.path("hotel/guardar/{id}").buildAndExpand(hotelEntities.get(0)).toUri();
+
+        return ResponseEntity.created(url).body(hotelEntities);
+    }
 
 }

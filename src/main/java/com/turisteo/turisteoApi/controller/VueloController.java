@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/vuelos")
@@ -23,6 +24,9 @@ public class VueloController {
 
     @Autowired
     private VuelosRepository vuelosRepository;
+
+    @Autowired
+    private VuelosService service;
 
     @PostMapping
     public ResponseEntity<?> guardarVuelos(@RequestBody @Valid VuelosDtoP vuelosDtoP, UriComponentsBuilder builder){
@@ -72,6 +76,15 @@ public class VueloController {
         return ResponseEntity.noContent().build();
     }
 
+    @PostMapping(path = "/guardar")
+    public ResponseEntity<List<VuelosEntity>> guardarListas(@RequestBody @Valid List<VuelosDtoP> vuelosDtoPS, UriComponentsBuilder builder){
+        System.out.println("Post con listas de vuelo correcto");
 
+        List<VuelosEntity> vuelosEntities = service.guardarLista(vuelosDtoPS);
+
+        URI url = builder.path("vuelos/guardar/{id}").buildAndExpand(vuelosEntities.get(0)).toUri();
+
+        return ResponseEntity.created(url).body(vuelosEntities);
+    }
 
 }

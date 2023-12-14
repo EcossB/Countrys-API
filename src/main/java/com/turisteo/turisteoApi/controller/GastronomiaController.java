@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/gastronomia")
@@ -22,6 +23,9 @@ public class GastronomiaController {
 
     @Autowired
     private GastronomiaRepository gastronomiaRepository;
+
+    @Autowired
+    private GastronomiaService service;
 
     @PostMapping
     public ResponseEntity<?> guardarGastronomia(@RequestBody @Valid GastronomiaDtoP datosGastronomia, UriComponentsBuilder builder){
@@ -64,5 +68,15 @@ public class GastronomiaController {
         return ResponseEntity.noContent().build();
     }
 
+    @PostMapping(path = "/guardar")
+    public ResponseEntity<List<GastronomiaEntity>> guardarListaGastronomia(@RequestBody @Valid List<GastronomiaDtoP> gastronomiaList, UriComponentsBuilder builder){
+
+        System.out.println("Post con listas gastronomia correctos");
+        List<GastronomiaEntity> gastronomiaEntities = service.guardarLista(gastronomiaList);
+
+        URI url = builder.path("gastronomia/guardar/{id}").buildAndExpand(gastronomiaEntities.get(0)).toUri();
+
+        return ResponseEntity.created(url).body(gastronomiaEntities);
+    }
 
 }

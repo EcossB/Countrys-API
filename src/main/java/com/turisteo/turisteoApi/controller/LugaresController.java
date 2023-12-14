@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 @RestController
 @RequestMapping("/lugaresfamosos")
@@ -22,6 +23,10 @@ public class LugaresController {
 
     @Autowired
     private LugaresRepository lugaresRepository;
+
+    @Autowired
+    private LugaresService service;
+
     @PostMapping
     public ResponseEntity<LugaresFamososDtoG> guardarlugarfamoso(@RequestBody @Valid LugaresFamososDtoP lugaresFamososDtoP , UriComponentsBuilder builder){
         System.out.println("El post fue correcto");
@@ -60,5 +65,20 @@ public class LugaresController {
         }
         lugaresRepository.deleteById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping(path = "/guardar")
+    public ResponseEntity<List<LugaresFamososEntity>> guardarListaLugaresFamosos(@RequestBody @Valid List<LugaresFamososDtoP> lugaresFamosos, UriComponentsBuilder builder) {
+        System.out.println("el post funciono con listas");
+
+        List<LugaresFamososEntity> lugaresFamosos1 =  service.guardarLista(lugaresFamosos);
+
+        for ( LugaresFamososDtoP lugar: lugaresFamosos) {
+            System.out.println(lugar);
+        }
+
+        URI url = builder.path("/lugaresfamosos/guardar/{id}").buildAndExpand(lugaresFamosos1.get(0)).toUri();
+
+        return ResponseEntity.created(url).body(lugaresFamosos1);
     }
 }
