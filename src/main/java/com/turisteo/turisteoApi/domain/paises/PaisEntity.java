@@ -38,16 +38,16 @@ public class PaisEntity {
     private String imagen1;
     private String imagen2;
 
-    @OneToMany(mappedBy = "paisEntity" , cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "paisEntity" , cascade = CascadeType.ALL, orphanRemoval = true)
     private List<LugaresFamososEntity> lugaresFamosos = new ArrayList<>();
 
-    @OneToMany(mappedBy = "paisEntity", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "paisEntity", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<GastronomiaEntity> gastronomia = new ArrayList<>();
 
-    @OneToMany(mappedBy = "paisEntity")
+    @OneToMany(mappedBy = "paisEntity", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<HotelEntity> hotel;
 
-    @OneToMany(mappedBy = "paisEntity")
+    @OneToMany(mappedBy = "paisEntity", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<VuelosEntity> vuelos;
 
 
