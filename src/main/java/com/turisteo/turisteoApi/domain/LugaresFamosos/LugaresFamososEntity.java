@@ -36,6 +36,13 @@ public class LugaresFamososEntity {
         this.paisEntity = lugaresFamososDtoP.paisId();
     }
 
+    public LugaresFamososEntity(String nombre, String descripcion, String imagen, PaisEntity paisId) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.imagen = imagen;
+        this.paisEntity = paisId;
+    }
+
     public void actualizarLugaresFamosos(LugaresFamososDtoPut lugaresFamososDtoPut){
         this.nombre = lugaresFamososDtoPut.nombre();
         this.descripcion = lugaresFamososDtoPut.descripcion();

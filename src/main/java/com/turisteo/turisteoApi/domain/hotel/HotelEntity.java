@@ -36,6 +36,13 @@ public class HotelEntity {
         this.paisEntity = hotelDtoP.paisId();
     }
 
+    public HotelEntity(String nombreHotel, float valoracion, String imagenHotel, PaisEntity paisId) {
+        this.nombre_hotel = nombreHotel;
+        this.valoracion = valoracion;
+        this.imagen_hotel = imagenHotel;
+        this.paisEntity = paisId;
+    }
+
     public void actualizarHoteles(HotelDtoPut hotelDtoPut){
         this.nombre_hotel = hotelDtoPut.nombre_hotel();
         this.valoracion = hotelDtoPut.valoracion();

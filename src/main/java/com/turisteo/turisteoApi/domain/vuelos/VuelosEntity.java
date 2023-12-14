@@ -30,6 +30,11 @@ public class VuelosEntity {
         this.paisEntity = vuelosDtoP.paisId();
     }
 
+    public VuelosEntity(String linkVuelo, PaisEntity paisId) {
+        this.link_vuelos = linkVuelo;
+        this.paisEntity = paisId;
+    }
+
     public void actualizarVuelos(VuelosDtoPut vuelosDtoPut){
         this.link_vuelos = vuelosDtoPut.linkVuelo();
         this.paisEntity = vuelosDtoPut.PaisId();

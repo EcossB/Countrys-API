@@ -36,6 +36,12 @@ public class GastronomiaEntity {
         this.paisEntity = datosGastronomia.paisId();
     }
 
+    public GastronomiaEntity(String nombrePlato, String linkImagen, PaisEntity paisId) {
+        this.nombre_plato = nombrePlato;
+        this.imagen = linkImagen;
+        this.paisEntity = paisId;
+    }
+
     public void actualizarDatos(GastronomiaDtoPut datosActualizarGastronomia) {
         this.nombre_plato = datosActualizarGastronomia.nombrePlato();
         this.imagen = datosActualizarGastronomia.linkImagen();
